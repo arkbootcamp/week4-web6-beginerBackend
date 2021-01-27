@@ -1,11 +1,10 @@
 const connection = require('../config/mysql')
 
 module.exports = {
-  getProductModel: (limit, offset) => {
+  getProductModel: (limit, offset, sort) => {
     return new Promise((resolve, reject) => {
       connection.query(
-        'SELECT * FROM product LIMIT ? OFFSET ?',
-        [limit, offset],
+        `SELECT * FROM product ORDER BY ${sort} DESC LIMIT ${limit} OFFSET ${offset}`,
         (error, result) => {
           !error ? resolve(result) : reject(new Error(error))
         }
